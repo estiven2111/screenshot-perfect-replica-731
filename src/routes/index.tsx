@@ -171,7 +171,7 @@ function Contact() {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = Object.fromEntries(new FormData(e.currentTarget)) as Record<string, string>;
-    if (fd.empresa) return; // honeypot
+    if (fd["empresa"]) return; // honeypot
     const r = formSchema.safeParse(fd);
     if (!r.success) {
       setErrors(Object.fromEntries(r.error.issues.map((i) => [i.path[0], i.message])));
@@ -225,11 +225,11 @@ function Contact() {
               <option value="" disabled>Selecciona una categoría</option>
               {categories.map((c) => <option key={c.slug}>{c.name}</option>)}
             </select>
-            {errors.producto && <span className="text-xs text-destructive">{errors.producto}</span>}
+            {errors["producto"] && <span className="text-xs text-destructive">{errors["producto"]}</span>}
           </label>
           <label className="block text-sm font-semibold">Mensaje
             <textarea name="mensaje" rows={4} className={`${field} mt-1`} />
-            {errors.mensaje && <span className="text-xs text-destructive">{errors.mensaje}</span>}
+            {errors["mensaje"] && <span className="text-xs text-destructive">{errors["mensaje"]}</span>}
           </label>
           <button type="submit" className="w-full rounded-full bg-leaf py-3 font-bold text-coal transition hover:brightness-95">Enviar mensaje</button>
           {sent && <p role="status" className="rounded-xl bg-mist p-3 text-center text-sm font-semibold text-emerald">¡Gracias! Tu mensaje está listo. Te responderemos muy pronto.</p>}
